@@ -19,26 +19,17 @@ class Window(QtWidgets.QWidget):
         self.initSignals()
 
     def initUi(self):
-        self.lineEditInput = QtWidgets.QLineEdit()
-        self.lineEditMirror = QtWidgets.QLineEdit()
+
+        self.LineEditInput = QtWidgets.QLineEdit()
+        self.LineEditMirror = QtWidgets.QLineEdit()
         self.pushButtonMirror = QtWidgets.QPushButton("Отобрази")
-        self.pushButtonMirror.installEventFilter(self)
-
-        self.label = QtWidgets.QLabel("Красивая кнопка")
-        self.label.installEventFilter(self) #что это
-
-        #self.pushButtonMirror.setText("Отобрази")
-
         layout_h = QtWidgets.QHBoxLayout()
         layout_v = QtWidgets.QVBoxLayout()
-
         layout_h.addWidget(self.LineEditInput)
         layout_h.addWidget(self.LineEditMirror)
 
         layout_v.addLayout(layout_h)
         layout_v.addWidget(self.pushButtonMirror)
-
-        layout_v.addWidget(self.label)
 
         self.setLayout(layout_v)
 
