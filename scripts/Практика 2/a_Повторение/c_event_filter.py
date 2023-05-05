@@ -8,14 +8,75 @@
 (красивая - красным, кнопка - синим)
 """
 
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 
 
 class Window(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.initUi()
+        self.initSignals()
 
+    def initUi(self):
+        self.lineEditInput = QtWidgets.QLineEdit()
+        self.lineEditMirror = QtWidgets.QLineEdit()
+        self.pushButtonMirror = QtWidgets.QPushButton("Отобрази")
+        self.pushButtonMirror.installEventFilter(self)
+
+        self.label = QtWidgets.QLabel("Красивая кнопка")
+        self.label.installEventFilter(self) #что это
+
+        #self.pushButtonMirror.setText("Отобрази")
+
+        layout_h = QtWidgets.QHBoxLayout()
+        layout_v = QtWidgets.QVBoxLayout()
+
+        layout_h.addWidget(self.LineEditInput)
+        layout_h.addWidget(self.LineEditMirror)
+
+        layout_v.addLayout(layout_h)
+        layout_v.addWidget(self.pushButtonMirror)
+
+        layout_v.addWidget(self.label)
+
+        self.setLayout(layout_v)
+
+    def initSignals(self):
+        # self.pushButtonMirror.connect(self.pushButtonMirror, "clicked", self.reverseData) # уход от кликедов не получилось
+
+        self.pushButtonMirror.clicked.connect(self.reverseData)  # сигнал №1
+        # self.pushButtonMirror.clicked.connect(self.reverseData2) #сигнал №2
+        # self.LineEditInput.textChanged.connect(self.reverseData3) #сигнал №3
+        # self.LineEditInput.textChanged.connect(lambda text: self.LineEditMirror.setText(text[::-1]))
+
+    def reverseData(self):
+        get_data = self.LineEditInput.text()
+        rev = get_data[::-1]
+        self.LineEditMirror.setText(rev)
+
+    def reverseData2(self, data):
+        self.LineEditMirror.setText(self.LineEditInput.text()[::-1])  # элегантное решение в одну строчку
+
+    def reverseData3(self, text):
+        self.LineEditMirror.setText(text[::-1])
+
+    def eventFilter(self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool: #переопределяем
+
+        if watched == self.pushButtonMirror:
+            if event.type() == QtCore.QEvent.Type.Enter:
+                self.pushButtonMirror.setText("Вошли в поле действия")
+            if event.type() == QtCore.QEvent.Type.Leave:
+                self.pushButtonMirror.setText("Отобрази")
+
+        if watched == self.label:
+            if event.type() == QtCore.QEvent.Type.Wheel:
+                self.label.setText("<span style=' color:#aa0000;'>Красивая </span><span style=' color:#0000ff;'>кнопка</span>")
+            if event.type() == QtCore.QEvent.Type.Leave:
+                self.label.setText("Красивая кнопка")
+
+
+        return super().eventFilter(watched, event)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()

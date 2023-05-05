@@ -40,7 +40,7 @@ class Window(QtWidgets.QWidget):
         #self.LineEditInput.textChanged.connect(self.reverseData3) #сигнал №3
         #self.LineEditInput.textChanged.connect(lambda text: self.LineEditMirror.setText(text[::-1]))
 
-    def reverseData(self):
+    def reverseData(self, data):
         print(data)
         get_data = self.LineEditInput.text()
         rev = get_data[::-1]
