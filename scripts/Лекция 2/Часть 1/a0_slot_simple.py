@@ -2,7 +2,7 @@
 Демонстрация простейшего использования сигналов/слотов
 """
 
-from PySide6 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore
 
 
 class Window(QtWidgets.QWidget):
@@ -52,4 +52,4 @@ if __name__ == "__main__":
     window = Window()
     window.show()
 
-    app.exec()
+    app.exec_()

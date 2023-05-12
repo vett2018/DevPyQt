@@ -2,7 +2,7 @@
 Создание простого окна в процедунром стиле
 """
 
-from PySide6 import QtWidgets  # Импорт пакета, который содержит виджеты
+from PySide2 import QtWidgets  # Импорт пакета, который содержит виджеты
 
 app = QtWidgets.QApplication()  # Создание  объект приложения
 myWindow = QtWidgets.QWidget()  # Создание объект окна
