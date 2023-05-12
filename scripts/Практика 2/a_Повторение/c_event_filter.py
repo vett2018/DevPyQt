@@ -31,20 +31,21 @@ class Window(QtWidgets.QWidget):
         layout_v = QtWidgets.QVBoxLayout()
         layout_h.addWidget(self.LineEditInput)
         layout_h.addWidget(self.LineEditMirror)
-        layout_v.addWidget(self.label)
 
         layout_v.addLayout(layout_h)
         layout_v.addWidget(self.pushButtonMirror)
+
+        layout_v.addWidget(self.label)
 
         self.setLayout(layout_v)
 
     def initSignals(self):
         #self.pushButtonMirror.connect(self.pushButtonMirror, "clicked", self.reverseData) # уход от кликедов не получилось
 
-        self.pushButtonMirror.clicked.connect(self.reverseData)  # сигнал №1
+        #self.pushButtonMirror.clicked.connect(self.reverseData)  # сигнал №1
         #self.pushButtonMirror.clicked.connect(self.reverseData2) #сигнал №2
         #self.LineEditInput.textChanged.connect(self.reverseData3) #сигнал №3
-        # self.LineEditInput.textChanged.connect(lambda text: self.LineEditMirror.setText(text[::-1]))
+        self.LineEditInput.textChanged.connect(lambda text: self.LineEditMirror.setText(text[::-1]))
 
     def reverseData(self):
         get_data = self.LineEditInput.text()
