@@ -10,12 +10,31 @@
 from PySide6 import QtWidgets, QtCore
 import time as time_
 
+
+class Worker(QtCore.QThread):
+    progress = QtCore.Signal(int)
+
+    def __init__(self, func=None):
+        self.func = func
+
+    def run(self) -> None:
+        """
+        Метод имитирующий долгую задачу
+
+        :return: None
+        """
+        if self.func is not None:
+            self.func()
+        self.finished.emit()
+
+
 class Window(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.initUi()
         self.initTimers()
+        self.initThreads()
         self.initSignals()
 
     def initUi(self) -> None:
@@ -30,15 +49,10 @@ class Window(QtWidgets.QWidget):
         self.spinbox = QtWidgets.QSpinBox()
         self.plainText = QtWidgets.QPlainTextEdit()
 
-        # layout = QtWidgets.QVBoxLayout() #для главного окна (последний лоят)
-
-
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.labelTime)
         layout.addWidget(self.spinbox)
         layout.addWidget(self.plainText)
-
-        # layout.addWidget(QtWidgets.QPlainTextEdit())
 
         self.setLayout(layout)
 
@@ -55,6 +69,17 @@ class Window(QtWidgets.QWidget):
         self.timeTimer.setInterval(1000)
         self.timeTimer.start()
 
+
+    def initThreads(self) -> None:
+        """
+        Инициализация потоков
+
+        :return: None
+        """
+
+        self.worker = Worker(self.showTime)
+
+
     def initSignals(self) -> None:
         """
         Инициализация сигналов
@@ -62,8 +87,7 @@ class Window(QtWidgets.QWidget):
         :return: None
         """
 
-
-        self.timeTimer.timeout.connect(self.showTime)  # показать время через секенду
+        self.timeTimer.timeout.connect(self.worker.start)
         self.timeTimer.timeout.connect(self.setText)
         self.spinbox.valueChanged.connect(self.setTimer)
 
@@ -77,11 +101,11 @@ class Window(QtWidgets.QWidget):
         time = QtCore.QDateTime.currentDateTime()
         timeDisplay = time.toString('yyyy-MM-dd hh:mm:ss dddd')
         self.labelTime.setText(timeDisplay)
-        # time_.sleep(0.5)
+        time_.sleep(1)
 
     def setTimer(self, value):
         self.timeTimer.stop()
-        self.timeTimer.setInterval(value * 1000 + 50)  # интервал
+        self.timeTimer.setInterval(value * 1000 + 50)
         self.timeTimer.start()
 
 
