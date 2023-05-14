@@ -2,7 +2,7 @@
 Создание простого окна в ООП стиле
 """
 
-from PySide6 import QtWidgets
+from PySide2 import QtWidgets
 
 
 class MyFirstWindow(QtWidgets.QWidget):  # Наследование от QWidget
@@ -36,4 +36,4 @@ if __name__ == "__main__":
     window = MyFirstWindow()  # Создание объекта окна
     window.show()  # Показ окна
 
-    app.exec()  # Запуск бесконечного цикла приложения (событий)
+    app.exec_()  # Запуск бесконечного цикла приложения (событий)

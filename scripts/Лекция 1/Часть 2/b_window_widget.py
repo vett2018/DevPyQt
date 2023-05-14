@@ -2,7 +2,7 @@
 Создание окна на основе QWidget
 """
 
-from PySide6 import QtWidgets
+from PySide2 import QtWidgets
 
 
 class Window(QtWidgets.QWidget):
