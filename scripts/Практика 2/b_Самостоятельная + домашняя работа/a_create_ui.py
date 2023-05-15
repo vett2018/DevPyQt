@@ -7,7 +7,7 @@ class Window(QtWidgets.QWidget):
         super().__init__(parent)
 
         # TODO Вызовите метод для инициализации интерфейса
-
+        self.initUi()
 
     def initUi(self) -> None:
         """
@@ -16,7 +16,7 @@ class Window(QtWidgets.QWidget):
         :return: None
         """
 
-        labelLogin = ...  # TODO Создайте виджет QLabel с текстом "Логин"
+        labelLogin =   # TODO Создайте виджет QLabel с текстом "Логин"
         labelRegistration = ...  # TODO Создайте виджет QLabel с текстом "Регистрация"
 
         self.lineEditLogin = ...  # TODO создайте виджет QLineEdit
