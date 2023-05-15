@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets
+from PySide2 import QtWidgets
 
 
 class Window(QtWidgets.QWidget):
@@ -7,6 +7,7 @@ class Window(QtWidgets.QWidget):
         super().__init__(parent)
 
         # TODO Вызовите метод для инициализации интерфейса
+
 
     def initUi(self) -> None:
         """
@@ -56,4 +57,4 @@ if __name__ == "__main__":
     window = Window()
     window.show()
 
-    app.exec()
+    app.exec_()
