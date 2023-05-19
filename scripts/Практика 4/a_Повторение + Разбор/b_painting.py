@@ -7,7 +7,7 @@ COLORS = [
 ]
 
 
-class QPaletteButton(QtWidgets.QPushButton):
+class QPaletteButton(QtWidgets.QPushButton): #кнопка с цветом
 
     def __init__(self, color):
         super().__init__()
@@ -17,14 +17,14 @@ class QPaletteButton(QtWidgets.QPushButton):
         self.setStyleSheet("background-color: %s;" % color)
 
 
-class Canvas(QtWidgets.QLabel):
+class Canvas(QtWidgets.QLabel): #холст
 
     def __init__(self):
         super().__init__()
 
         self.pen_color = QtGui.QColor('#000000')
 
-        pixmap = QtGui.QPixmap(600, 300)
+        pixmap = QtGui.QPixmap(600, 600) #позволяет рисовать более сложные вещи
         self.setPixmap(pixmap)
 
         self.last_x, self.last_y = None, None
@@ -55,6 +55,7 @@ class Canvas(QtWidgets.QLabel):
     def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
         self.last_x = None
         self.last_y = None
+        #pass
 
 
 class Window(QtWidgets.QWidget):

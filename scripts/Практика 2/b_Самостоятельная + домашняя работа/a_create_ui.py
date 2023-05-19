@@ -16,10 +16,10 @@ class Window(QtWidgets.QWidget):
         :return: None
         """
 
-        labelLogin =   # TODO Создайте виджет QLabel с текстом "Логин"
-        labelRegistration = ...  # TODO Создайте виджет QLabel с текстом "Регистрация"
+        self.labelLogin = QtWidgets.QLabel("Логин")  # TODO Создайте виджет QLabel с текстом "Логин"
+        self.labelRegistration = QtWidgets.QLabel("Registrate")  # TODO Создайте виджет QLabel с текстом "Регистрация"
 
-        self.lineEditLogin = ...  # TODO создайте виджет QLineEdit
+        self.lineEditLogin =   # TODO создайте виджет QLineEdit
         self.lineEditLogin  # TODO добавьте placeholderText "Введите логин" с помощью метода .setPlaceholderText()
         self.lineEditPassword = ...  # TODO создайте виджет QLineEdit
         self.lineEditPassword  # TODO добавьте placeholderText "Введите пароль"

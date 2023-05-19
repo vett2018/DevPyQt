@@ -19,13 +19,10 @@
     * При перемещении окна выводить его старую и новую позицию
     * При изменении размера окна выводить его новый размер
 """
-#PySide6-uic c_signals_events.ui > c_signals_events.py
-#PySide6-uic c_signals_events.ui -o ccc.py
+
 
 from PySide6 import QtWidgets, QtGui, QtCore
 from ui.c_signals_events import Ui_Form
-
-
 import time
 
 
