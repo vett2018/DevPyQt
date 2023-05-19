@@ -7,7 +7,7 @@ COLORS = [
 ]
 
 
-class QPaletteButton(QtWidgets.QPushButton): #кнопка с цветом
+class QPaletteButton(QtWidgets.QPushButton):
 
     def __init__(self, color):
         super().__init__()
@@ -17,14 +17,14 @@ class QPaletteButton(QtWidgets.QPushButton): #кнопка с цветом
         self.setStyleSheet("background-color: %s;" % color)
 
 
-class Canvas(QtWidgets.QLabel): #холст
+class Canvas(QtWidgets.QLabel):
 
-    def __init__(self):
+    def __init__(self, slider):
         super().__init__()
-
+        self.slider = slider
         self.pen_color = QtGui.QColor('#000000')
 
-        pixmap = QtGui.QPixmap(600, 600) #позволяет рисовать более сложные вещи
+        pixmap = QtGui.QPixmap(600, 300)
         self.setPixmap(pixmap)
 
         self.last_x, self.last_y = None, None
@@ -40,10 +40,10 @@ class Canvas(QtWidgets.QLabel): #холст
 
         canvas = self.pixmap()
         painter = QtGui.QPainter(canvas)
-        p = painter.pen()
-        p.setWidth(4)
-        p.setColor(self.pen_color)
-        painter.setPen(p)
+        self.p = painter.pen()
+        self.p.setWidth(self.slider.value())
+        self.p.setColor(self.pen_color)
+        painter.setPen(self.p)
         painter.drawLine(self.last_x, self.last_y, event.x(), event.y())
         painter.end()
         self.setPixmap(canvas)
@@ -53,9 +53,9 @@ class Canvas(QtWidgets.QLabel): #холст
         self.last_y = event.y()
 
     def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
-        self.last_x = None
-        self.last_y = None
-        #pass
+        pass
+        # self.last_x = None
+        # self.last_y = None
 
 
 class Window(QtWidgets.QWidget):
@@ -64,6 +64,7 @@ class Window(QtWidgets.QWidget):
         super().__init__(parent)
 
         self.initUi()
+        # self.initSignals()
 
     def initUi(self) -> None:
         """
@@ -71,23 +72,33 @@ class Window(QtWidgets.QWidget):
 
         :return: None
         """
-
-        self.canvas = Canvas()
+        self.slider = QtWidgets.QSlider()
+        self.canvas = Canvas(self.slider)
 
         palette = QtWidgets.QHBoxLayout()
         self.add_palette_buttons(palette)
-
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.canvas)
         layout.addLayout(palette)
-
-        self.setLayout(layout)
+        vertLay = QtWidgets.QHBoxLayout()
+        vertLay.addLayout(layout)
+        vertLay.addWidget(self.slider)
+        self.setLayout(vertLay)
 
     def add_palette_buttons(self, layout):
         for c in COLORS:
             b = QPaletteButton(c)
             b.pressed.connect(lambda c=c: self.canvas.set_pen_color(c))
             layout.addWidget(b)
+
+    # def initSignals(self):
+    #     self.slider.sliderMoved.connect(self.setPen)
+    #
+    # def setPen(self, value):
+    #     print(value)
+    #     self.canvas.p.setWidth(int(value/10))
+
+
 
 
 if __name__ == '__main__':
