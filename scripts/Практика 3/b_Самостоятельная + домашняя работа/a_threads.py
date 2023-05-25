@@ -3,31 +3,34 @@
 """
 
 import time
-
 import psutil
-from PySide6 import QtCore
+import requests
+import json
+
+from PySide2 import QtCore
 
 
 class SystemInfo(QtCore.QThread):
-    systemInfoReceived = ...  # TODO Создайте экземпляр класса Signal и передайте ему в конструктор тип данных передаваемого значения (в текущем случае list)
+    systemInfoReceived = QtCore.Signal(list)  # TODO Создайте экземпляр класса Signal и передайте ему в конструктор тип данных передаваемого значения (в текущем случае list)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        ...  # TODO создайте атрибут класса self.delay = None, для управлением задержкой получения данных
+        self.delay = None  # TODO создайте атрибут класса self.delay = None, для управлением задержкой получения данных
 
     def run(self) -> None:  # TODO переопределить метод run
         if self.delay is None:  # TODO Если задержка не передана в поток перед его запуском
-            self.delay = ...  # TODO то устанавливайте значение 1
+            self.delay = 1  # TODO то устанавливайте значение 1
 
         while True:  # TODO Запустите бесконечный цикл получения информации о системе
-            cpu_value = psutil  # TODO с помощью вызова функции cpu_percent() в пакете psutil получите загрузку CPU
-            ram_value = ...  # TODO с помощью вызова функции virtual_memory().percent в пакете psutil получите загрузку RAM
-            self.systemSignal  # TODO с помощью метода .emit передайте в виде списка данные о загрузке CPU и RAM
-            time  # TODO с помощью функции .sleep() приостановите выполнение цикла на время self.delay
+            cpu_value = psutil.cpu_percent()  # TODO с помощью вызова функции cpu_percent() в пакете psutil получите загрузку CPU
+            ram_value = psutil.virtual_memory().percent  # TODO с помощью вызова функции virtual_memory().percent в пакете psutil получите загрузку RAM
+            self.systemInfoReceived.emit([cpu_value, ram_value])  # TODO с помощью метода .emit передайте в виде списка данные о загрузке CPU и RAM
+            time.sleep(self.delay)  # TODO с помощью функции .sleep() приостановите выполнение цикла на время self.delay
 
 
 class WeatherHandler(QtCore.QThread):
     # TODO Пропишите сигналы, которые считаете нужными
+    weatherReceived = QtCore.Signal(dict)
 
     def __init__(self, lat, lon, parent=None):
         super().__init__(parent)
@@ -36,20 +39,53 @@ class WeatherHandler(QtCore.QThread):
         self.__delay = 10
         self.__status = None
 
-    def setDelay(self, delay) -> None:
-        """
-        Метод для установки времени задержки обновления сайта
+        @property
+        def api_url(self) -> str:
+            return self.__api_url
 
-        :param delay: время задержки обновления информации о доступности сайта
-        :return: None
-        """
+        @property
+        def delay(self) -> int:
+            return self.__delay
 
-        self.__delay = delay
+        @delay.setter
+        def delay(self, value: int) -> None:
+            if not isinstance(value, int):
+                raise ValueError
+            self.__delay = value
+
+        @property
+        def status(self) -> None:
+            return self.__status
+
+        @status.setter
+        def status(self, value: bool) -> None:
+            if not isinstance(value, bool):
+                raise ValueError
+            self.__status = value
+
+    # def setDelay(self, delay) -> None:
+    #     """
+    #     Метод для установки времени задержки обновления сайта
+    #
+    #     :param delay: время задержки обновления информации о доступности сайта
+    #     :return: None
+    #     """
+    #
+    #     self.__delay = delay
 
     def run(self) -> None:
         # TODO настройте метод для корректной работы
+        self.status = True
 
         while self.__status:
+            response = requests.get(self.__api_url)
+            if response.status_code == 200:
+                data_dict = json.loads(response.json())
+                self.weatherReceived.emit(data_dict["current_weather"])
+                time.sleep(self.delay)
+            else:
+                self.status = False
+                return
             # TODO Примерный код ниже
             """
             response = requests.get(self.__api_url)

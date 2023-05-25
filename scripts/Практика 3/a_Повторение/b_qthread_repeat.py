@@ -14,7 +14,7 @@
 Опционально поработать с валидацией url
 """
 
-from PySide6 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore
 import requests
 import time
 
@@ -113,4 +113,4 @@ if __name__ == "__main__":
     window = Window()
     window.show()
 
-    app.exec()
+    app.exec_()

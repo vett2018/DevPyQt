@@ -7,7 +7,7 @@
 с некоторой периодичностью вызывать определённую функцию.
 """
 
-from PySide6 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore
 import time as time_
 
 
@@ -121,4 +121,4 @@ if __name__ == "__main__":
     window = Window()
     window.show()
 
-    app.exec()
+    app.exec_()

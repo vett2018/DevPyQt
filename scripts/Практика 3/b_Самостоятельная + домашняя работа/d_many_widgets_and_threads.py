@@ -1,7 +1,7 @@
 """
 Реализовать окно, которое будет объединять в себе сразу два предыдущих виджета
 """
-from PySide6 import QtWidgets
+from PySide2 import QtWidgets
 
 from b_systeminfo_widget import SystemInfoWindow  # Импортируем класс формы
 from c_weatherapi_widget import WeatherInfo
