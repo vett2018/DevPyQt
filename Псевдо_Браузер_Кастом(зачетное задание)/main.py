@@ -1,4 +1,5 @@
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
+from PySide2 import QtWebEngineWidgets
 
 from widget import Ui_MainWindow  # Импортируем класс формы
 
@@ -9,10 +10,55 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.index = 3
+        self.initUi()
         self.initSignals()
+
+    def initUi(self):
+        self.button = QtWidgets.QPushButton("New Button")
+        self.ui.horizontalLayout_2.addWidget(self.button)
+        print(self.ui.tab_2.children())
+        self.tabs = {}
+        self.tabs["tab"] = {"tab": self.ui.tab, "lineEdit": self.ui.lineEdit, "PushButton": self.ui.pushButton, "Web": self.ui.webEngineView}
+        self.tabs["tab_2"] = {"tab": self.ui.tab_2, "other": []}
+
+
 
     def initSignals(self):
         self.ui.pushButton.clicked.connect(self.setUrl)
+        self.button.clicked.connect(self.createTab)
+
+    def newTab(self):
+        # eval(f"self.tab_{index}=QtWidgets.QWidget()")
+        tab = QtWidgets.QWidget()
+        verticalLayout_2 = QtWidgets.QVBoxLayout(tab)
+        horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        lineEdit = QtWidgets.QLineEdit(tab)
+        horizontalLayout_2.addWidget(lineEdit)
+
+        pushButton = QtWidgets.QPushButton(tab)
+        icon = QtGui.QIcon()
+        icon.addFile(u":/logo/icons8-\u0434\u0436\u0435\u0439\u043a-16.png", QtCore.QSize(), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        pushButton.setIcon(icon)
+
+        horizontalLayout_2.addWidget(pushButton)
+
+        verticalLayout_2.addLayout(horizontalLayout_2)
+
+        webEngineView = QtWebEngineWidgets.QWebEngineView(tab)
+        webEngineView.setUrl(QtCore.QUrl(u"about:blank"))
+
+        verticalLayout_2.addWidget(webEngineView)
+        self.tabs[f"tab_{self.index}"] = {"tab": tab, "lineEdit": lineEdit, "pushButton": pushButton, "Web": webEngineView}
+        self.index += 1
+        return tab
+
+    def createTab(self):
+        # tab = self.newTab()
+        # print(tab.children())
+        self.ui.tabWidget.addTab(self.newTab(), "New Tab")
+        tab = self.tabs[f"tab_{self.index - 1}"]
+        tab["pushButton"].clicked.connect(lambda: tab["Web"].setUrl("https://" + tab["lineEdit"].text()))
 
     def setUrl(self):
         self.ui.webEngineView.setUrl("https://" + self.ui.lineEdit.text())
