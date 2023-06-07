@@ -3,27 +3,18 @@
 ################################################################################
 ## Form generated from reading UI file 'widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.0
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-# from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-#     QMetaObject, QObject, QPoint, QRect,
-#     QSize, QTime, QUrl, Qt)
-# from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-#     QFont, QFontDatabase, QGradient, QIcon,
-#     QImage, QKeySequence, QLinearGradient, QPainter,
-#     QPalette, QPixmap, QRadialGradient, QTransform)
-# from PySide6.QtWebEngineWidgets import QWebEngineView
-# from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QMainWindow,
-#     QMenuBar, QPushButton, QSizePolicy, QStatusBar,
-#     QTabWidget, QVBoxLayout, QWidget)
-
 from PySide2.QtCore import *
 from PySide2.QtGui import *
-from PySide2.QtWebEngineWidgets import *
 from PySide2.QtWidgets import *
+
+from PySide2.QtWebEngineWidgets import QWebEngineView
+
+
 import widget_rc
 
 class Ui_MainWindow(object):
@@ -66,34 +57,18 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.webEngineView.sizePolicy().hasHeightForWidth())
         self.webEngineView.setSizePolicy(sizePolicy)
-        self.webEngineView.setUrl(QUrl(u"about:blank"))
+        self.webEngineView.setProperty("url", QUrl(u"about:blank"))
 
         self.verticalLayout_2.addWidget(self.webEngineView)
 
         self.tabWidget.addTab(self.tab, "")
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.verticalLayout = QVBoxLayout(self.tab_2)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.lineEdit_2 = QLineEdit(self.tab_2)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-
-        self.verticalLayout.addWidget(self.lineEdit_2)
-
-        self.webEngineView_2 = QWebEngineView(self.tab_2)
-        self.webEngineView_2.setObjectName(u"webEngineView_2")
-        self.webEngineView_2.setUrl(QUrl(u"about:blank"))
-
-        self.verticalLayout.addWidget(self.webEngineView_2)
-
-        self.tabWidget.addTab(self.tab_2, "")
 
         self.horizontalLayout.addWidget(self.tabWidget)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 660, 22))
+        self.menubar.setGeometry(QRect(0, 0, 660, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -108,9 +83,8 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0441\u0435\u0432\u0434\u043e\u0411\u0440\u0430\u0443\u0437\u0435\u0440", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0439\u0442\u0438", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Tab 1", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0447\u0430\u043b\u044c\u043d\u0430\u044f \u0412\u043a\u043b\u0430\u0434\u043a\u0430", None))
     # retranslateUi
 

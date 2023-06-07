@@ -15,12 +15,12 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
         self.initSignals()
 
     def initUi(self):
-        self.button = QtWidgets.QPushButton("New Button")
+        self.button = QtWidgets.QPushButton("Добавить Вкладку")
         self.ui.horizontalLayout_2.addWidget(self.button)
-        print(self.ui.tab_2.children())
+        print(self.ui.tab.children())
         self.tabs = {}
         self.tabs["tab"] = {"tab": self.ui.tab, "lineEdit": self.ui.lineEdit, "PushButton": self.ui.pushButton, "Web": self.ui.webEngineView}
-        self.tabs["tab_2"] = {"tab": self.ui.tab_2, "other": []}
+        self.tabs["tab_2"] = {"tab": self.ui.tab, "other": []}
 
 
 
@@ -56,12 +56,13 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
     def createTab(self):
         # tab = self.newTab()
         # print(tab.children())
-        self.ui.tabWidget.addTab(self.newTab(), "New Tab")
+        self.ui.tabWidget.addTab(self.newTab(), "Новая Вкладка")
         tab = self.tabs[f"tab_{self.index - 1}"]
         tab["pushButton"].clicked.connect(lambda: tab["Web"].setUrl("https://" + tab["lineEdit"].text()))
 
     def setUrl(self):
-        self.ui.webEngineView.setUrl("https://" + self.ui.lineEdit.text())
+        # self.ui.webEngineView.setUrl("https://" + self.ui.lineEdit.text())
+        self.ui.webEngineView.setUrl("https://ya.ru")
 
 
 if __name__ == "__main__":
