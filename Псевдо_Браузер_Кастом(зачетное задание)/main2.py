@@ -7,6 +7,8 @@ from widget2 import Ui_MainWindow  # Импортируем класс форм�
 class Window(QtWidgets.QMainWindow):  # наследуемся от того же класса, что и форма в QtDesigner
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.centralwidget = QtWidgets.QWidget()
+        self.setCentralWidget(self.centralwidget)
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -37,24 +39,27 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
     def newTab(self):
         # eval(f"self.tab_{index}=QtWidgets.QWidget()")
         tab = QtWidgets.QWidget()
-        verticalLayout_2 = QtWidgets.QVBoxLayout(tab)
-        horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.statusBar().showMessage('Message in statusbar. ''Будет Скрыто через 5000 миллисекунд - 5 секунды! ', 5000)
+
+
+        # verticalLayout_2 = QtWidgets.QVBoxLayout(tab)
+        # horizontalLayout_2 = QtWidgets.QHBoxLayout()
         #lineEdit = QtWidgets.QLineEdit(tab)
         #horizontalLayout_2.addWidget(lineEdit)
 
         pushButton = QtWidgets.QPushButton(tab)
-        icon = QtGui.QIcon()
-        icon.addFile(u":/logo/icons8-\u0434\u0436\u0435\u0439\u043a-16.png", QtCore.QSize(), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        pushButton.setIcon(icon)
+        # icon = QtGui.QIcon()
+        # icon.addFile(u":/logo/icons8-\u0434\u0436\u0435\u0439\u043a-16.png", QtCore.QSize(), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # pushButton.setIcon(icon)
 
-        horizontalLayout_2.addWidget(pushButton)
-
-        verticalLayout_2.addLayout(horizontalLayout_2)
+        # horizontalLayout_2.addWidget(pushButton)
+        #
+        # verticalLayout_2.addLayout(horizontalLayout_2)
 
         webEngineView = QtWebEngineWidgets.QWebEngineView(tab)
         webEngineView.setUrl(QtCore.QUrl(u"about:blank"))
 
-        verticalLayout_2.addWidget(webEngineView)
+        #verticalLayout_2.addWidget(webEngineView)
         #self.tabs[f"tab_{self.index}"] = {"tab": tab, "lineEdit": lineEdit, "pushButton": pushButton, "Web": webEngineView}
         self.tabs[f"tab_{self.index}"] = {"tab": tab, "pushButton": pushButton, "Web": webEngineView}
 
