@@ -16,8 +16,6 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
         self.initUi()
         self.initSignals()
 
-
-
     def initUi(self):
         #self.button = QtWidgets.QPushButton("Добавить Вкладку")
         #self.ui.horizontalLayout.addWidget(self.button)
@@ -28,45 +26,39 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
 
         self.tabs["tab_2"] = {"tab": self.ui.tab, "other": []}
 
-
-
     def initSignals(self):
         self.ui.pushButton.clicked.connect(self.setUrl)
         #self.button.clicked.connect(self.createTab)
         self.ui.pushButton_2.clicked.connect(self.createTab)
 
-
     def newTab(self):
         # eval(f"self.tab_{index}=QtWidgets.QWidget()")
         tab = QtWidgets.QWidget()
-        self.statusBar().showMessage('Message in statusbar. ''Будет Скрыто через 5000 миллисекунд - 5 секунды! ', 5000)
-
-
-        # verticalLayout_2 = QtWidgets.QVBoxLayout(tab)
-        # horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.statusBar().showMessage('Вкладка открыта.' 'Будет Скрыто через - 1 секунду! ', 1000)
+        verticalLayout_2 = QtWidgets.QVBoxLayout(tab)
+        horizontalLayout_2 = QtWidgets.QHBoxLayout()
         #lineEdit = QtWidgets.QLineEdit(tab)
         #horizontalLayout_2.addWidget(lineEdit)
 
-        pushButton = QtWidgets.QPushButton(tab)
+        #pushButton = QtWidgets.QPushButton(tab)
+
         # icon = QtGui.QIcon()
         # icon.addFile(u":/logo/icons8-\u0434\u0436\u0435\u0439\u043a-16.png", QtCore.QSize(), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         # pushButton.setIcon(icon)
 
-        # horizontalLayout_2.addWidget(pushButton)
-        #
-        # verticalLayout_2.addLayout(horizontalLayout_2)
+        #horizontalLayout_2.addWidget(pushButton)
+
+        #verticalLayout_2.addLayout(horizontalLayout_2)
 
         webEngineView = QtWebEngineWidgets.QWebEngineView(tab)
         webEngineView.setUrl(QtCore.QUrl(u"about:blank"))
 
-        #verticalLayout_2.addWidget(webEngineView)
+        verticalLayout_2.addWidget(webEngineView)
         #self.tabs[f"tab_{self.index}"] = {"tab": tab, "lineEdit": lineEdit, "pushButton": pushButton, "Web": webEngineView}
-        self.tabs[f"tab_{self.index}"] = {"tab": tab, "pushButton": pushButton, "Web": webEngineView}
-
+        #self.tabs[f"tab_{self.index}"] = {"tab": tab, "lineEdit": lineEdit, "pushButton": pushButton, "Web": webEngineView}
+        self.tabs[f"tab_{self.index}"] = {"pushButton": self.ui.pushButton,"Web": webEngineView}
         self.index += 1
         return tab
-
-
 
     def createTab(self):
         #tab = self.newTab()
