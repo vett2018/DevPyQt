@@ -41,16 +41,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.pushButton_2)
 
-        self.pushButton_3 = QPushButton(self.centralwidget)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-
-        self.horizontalLayout.addWidget(self.pushButton_3)
-
 
         self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
 
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setDocumentMode(False)
+        self.tabWidget.setTabsClosable(True)
+        self.tabWidget.setMovable(False)
+        self.tabWidget.setTabBarAutoHide(False)
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
         self.gridLayout_2 = QGridLayout(self.tab)
@@ -91,7 +90,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0441\u0435\u0432\u0434\u043e\u0411\u0440\u0430\u0443\u0437\u0435\u0440", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u043c\u0430\u0448\u043d\u044f\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u042f\u043d\u0434\u0435\u043a\u0441", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0412\u043a\u043b\u0430\u0434\u043a\u0443", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0412\u043a\u043b\u0430\u0434\u043a\u0443", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0447\u0430\u043b\u044c\u043d\u0430\u044f \u0412\u043a\u043b\u0430\u0434\u043a\u0430", None))
     # retranslateUi
 

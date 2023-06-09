@@ -1,4 +1,4 @@
-import sys
+import sys, random
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -38,13 +38,13 @@ class TabContainer(QWidget):
             table.setItem( r, c, QTableWidgetItem(str(random.randint(0,10) ) ) )
     return table
 
-  # def create_list(self):
-  #   list = QListWidget()
-  #   columns = random.randint(2,5)
-  #   for c in range(columns):
-  #       QListWidgetItem( str( random.randint(0,10) ), list )
-  #
-  #   return list
+  def create_list(self):
+    list = QListWidget()
+    columns = random.randint(2,5)
+    for c in range(columns):
+        QListWidgetItem( str( random.randint(0,10) ), list )
+
+    return list
 
   def create_new_page_button(self):
     btn = QPushButton('Create a new page!')

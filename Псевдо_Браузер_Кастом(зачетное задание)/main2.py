@@ -30,6 +30,10 @@ class Window(QtWidgets.QMainWindow):  # наследуемся от того ж�
         self.ui.pushButton.clicked.connect(self.setUrl)
         #self.button.clicked.connect(self.createTab)
         self.ui.pushButton_2.clicked.connect(self.createTab)
+        self.ui.tabWidget.tabCloseRequested.connect(self.closeTab)
+
+    def closeTab(self, index):
+        self.ui.tabWidget.removeTab(index)
 
     def newTab(self):
         # eval(f"self.tab_{index}=QtWidgets.QWidget()")
